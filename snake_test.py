@@ -25,16 +25,15 @@ class Snake1:
         self.length = length
         self.width = width
         self.color = color
-        self.snake_blocks_coord = []
-
+        self.snake_blocks = []
         pass
 
     def move(self):
         pass
 
     def draw(self):
-        for coord in self.snake_blocks_coord:
-            pg.draw.rect(screen, self.color, [coord, self.width, self.width])
+        for coord in self.snake_blocks:
+            pg.draw.rect(screen, self.color, [coord[0], coord[1], self.width, self.width])
         pass
 
     def eat(self):
@@ -53,6 +52,9 @@ class Snake2:
 
 
 class Food:
+    def __init__(self, coord):
+        self.coord = coord
+
     pass
 
 
@@ -60,13 +62,13 @@ class Manager:
 
     def __init__(self):
         self.food = []
-
         self.snake = Snake1()
-        
+        self.targets = []
 
         pass
 
     def new_food(self):
+
         pass
 
     def process(self, events, screen):
@@ -94,6 +96,11 @@ class Manager:
     def collide(self):
         pass
 
+    def block_direction(self):
+        for i in range(len(self.snake.snake_blocks) - 1):
+            for j in range(2):
+                
+                
 
 done = False
 clock = pg.time.Clock()
@@ -109,3 +116,4 @@ while not done:
     pg.display.flip()
 
 pg.quit()
+
