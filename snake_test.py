@@ -62,11 +62,7 @@ class Manager:
         self.food = []
 
         self.snake = Snake1()
-        self.targets = []
-        self.score_t = ScoreTable()
-        self.n_static_targets = n_static_targets
-        self.n_moving_targets = n_moving_targets
-        self.new_mission()
+        
 
         pass
 
