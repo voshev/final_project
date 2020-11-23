@@ -97,10 +97,28 @@ class Manager:
         pass
 
     def block_direction(self):
-        for i in range(len(self.snake.snake_blocks) - 1):
-            for j in range(2):
-                
-                
+        for i in range(1, len(self.snake.snake_blocks) - 1):
+            if (self.snake.snake_blocks[i - 1][0] - self.snake.snake_blocks[i + 1][0] == 0):
+                self.snake.snake_blocks[i].add('vertical')
+            elif (self.snake.snake_blocks[i - 1][1] - self.snake.snake_blocks[i + 1][1] == 0):
+                self.snake.snake_blocks[i].add('horizontal')
+            elif ((self.snake.snake_blocks[i - 1][0] - self.snake.snake_blocks[i + 1][0]) * (
+                    self.snake.snake_blocks[i - 1][1] - self.snake.snake_blocks[i + 1][1] > 0) and
+                  self.snake.snake_blocks[i - 1][0] + self.snake.snake_blocks[i + 1][0] - 2 * self.snake.snake_blocks[i][0] > 0):
+                self.snake.snake_blocks[i].add('up-right')
+            elif ((self.snake.snake_blocks[i - 1][0] - self.snake.snake_blocks[i + 1][0]) * (
+                    self.snake.snake_blocks[i - 1][1] - self.snake.snake_blocks[i + 1][1] > 0) and
+                  self.snake.snake_blocks[i - 1][0] + self.snake.snake_blocks[i + 1][0] - 2 * self.snake.snake_blocks[i][0] < 0):
+                self.snake.snake_blocks[i].add('down-left')
+            elif ((self.snake.snake_blocks[i - 1][0] - self.snake.snake_blocks[i + 1][0]) * (
+                    self.snake.snake_blocks[i - 1][1] - self.snake.snake_blocks[i + 1][1] < 0) and
+                  self.snake.snake_blocks[i - 1][0] + self.snake.snake_blocks[i + 1][0] - 2 * self.snake.snake_blocks[i][0] > 0):
+                self.snake.snake_blocks[i].add('right-down')
+            elif ((self.snake.snake_blocks[i - 1][0] - self.snake.snake_blocks[i + 1][0]) * (
+                    self.snake.snake_blocks[i - 1][1] - self.snake.snake_blocks[i + 1][1] < 0) and
+                  self.snake.snake_blocks[i - 1][0] + self.snake.snake_blocks[i + 1][0] - 2 * self.snake.snake_blocks[i][0] < 0):
+                self.snake.snake_blocks[i].add('left-up')
+
 
 done = False
 clock = pg.time.Clock()
