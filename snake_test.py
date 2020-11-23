@@ -18,7 +18,7 @@ screen = pg.display.set_mode(screen_size)
 
 
 class Snake1:
-    def __init__(self, color, coord=None, length=0, width=10):
+    def __init__(self, color, coord=None, length=0, width=20):
         if coord == None:
             coord = [randint(0, screen_size[0] - self.width), randint(0, screen_size[0] - self.width)]
         self.coord = coord
@@ -97,7 +97,8 @@ class Manager:
         pass
 
     def block_direction(self):
-        for i in range(1, len(self.snake.snake_blocks) - 1):
+        n = len(self.snake.snake_blocks)
+        for i in range(1, n - 2):
             if (self.snake.snake_blocks[i - 1][0] - self.snake.snake_blocks[i + 1][0] == 0):
                 self.snake.snake_blocks[i].add('vertical')
             elif (self.snake.snake_blocks[i - 1][1] - self.snake.snake_blocks[i + 1][1] == 0):
@@ -118,6 +119,27 @@ class Manager:
                     self.snake.snake_blocks[i - 1][1] - self.snake.snake_blocks[i + 1][1] < 0) and
                   self.snake.snake_blocks[i - 1][0] + self.snake.snake_blocks[i + 1][0] - 2 * self.snake.snake_blocks[i][0] < 0):
                 self.snake.snake_blocks[i].add('left-up')
+                
+        if (self.snake.snake_blocks[0][0] - self.snake.snake_blocks[1][0] == 0 and self.snake.snake_blocks[0][1] - self.snake.snake_blocks[1][1] < 0):
+            self.snake.snake_blocks[0].add('up')
+        elif (self.snake.snake_blocks[0][0] - self.snake.snake_blocks[1][0] == 0 and self.snake.snake_blocks[0][1] - self.snake.snake_blocks[1][1] < 0):
+            self.snake.snake_blocks[0].add('down')
+        elif (self.snake.snake_blocks[0][0] - self.snake.snake_blocks[1][0] < 0 and self.snake.snake_blocks[0][1] - self.snake.snake_blocks[1][1] == 0):
+            self.snake.snake_blocks[0].add('left')
+        elif (self.snake.snake_blocks[0][0] - self.snake.snake_blocks[1][0] > 0 and self.snake.snake_blocks[0][1] - self.snake.snake_blocks[1][1] == 0):
+            self.snake.snake_blocks[0].add('left')
+            
+        if (self.snake.snake_blocks[n-1][0] - self.snake.snake_blocks[n-2][0] == 0 and self.snake.snake_blocks[n-1][1] - self.snake.snake_blocks[n-2][1] < 0):
+            self.snake.snake_blocks[n-1].add('up')
+        elif (self.snake.snake_blocks[n-1][0] - self.snake.snake_blocks[n-2][0] == 0 and self.snake.snake_blocks[n-1][1] - self.snake.snake_blocks[n-2][1] < 0):
+            self.snake.snake_blocks[n].add('down')
+        elif (self.snake.snake_blocks[n-1][0] - self.snake.snake_blocks[n-2][0] < 0 and self.snake.snake_blocks[n-1][1] - self.snake.snake_blocks[n-2][1] == 0):
+            self.snake.snake_blocks[n-1].add('left')
+        elif (self.snake.snake_blocks[n-1][0] - self.snake.snake_blocks[n-2][0] > 0 and self.snake.snake_blocks[n-1][1] - self.snake.snake_blocks[n-2][1] == 0):
+            self.snake.snake_blocks[n-1].add('left')
+        
+
+
 
 
 done = False
