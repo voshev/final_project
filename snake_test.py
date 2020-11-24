@@ -119,7 +119,7 @@ class Manager:
         pass
 
     def new_food(self):
-        self.food.insert(0,Food(green))
+        self.food.insert(0, Food(green))
         pass
 
     def process(self, events, screen):
@@ -173,6 +173,8 @@ class Manager:
         pass
 
     def collide(self):
+        walls = []
+
         pass
 
     def block_direction(self):
@@ -245,4 +247,3 @@ while not done:
     pg.display.flip()
 
 pg.quit()
-
