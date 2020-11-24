@@ -19,7 +19,8 @@ screen = pg.display.set_mode(screen_size)
 
 class Snake1:
     # предпологается, что snake1 на стрелочках snake2 на awsd в остальном они одинаковы
-    def __init__(self, color, coord=None, length=1, width=20):
+    def __init__(self, color, coord=None, length=1, width=20, move_direction = 0):
+        self.move_direction = move_direction
         self.color = color
         self.length = length
         self.width = width
@@ -58,7 +59,8 @@ class Snake1:
 
 class Snake2:
     # предпологается, что snake1 на стрелочках snake2 на awsd в остальном они одинаковы
-    def __init__(self, color, coord=None, length=1, width=20):
+    def __init__(self, color, coord=None, length=1, width=20, move_direction = 0):
+        self.move_direction = move_direction
         self.color = color
         self.length = length
         self.width = width
@@ -143,13 +145,13 @@ class Manager:
 
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_UP:
-                    self.snake1.move_y(-1)
+                    self.snake1.move_direction = 'up'
                 elif event.key == pg.K_DOWN:
-                    self.snake1.move_y(1)
+                    self.snake1.move_direction = 'down'
                 elif event.key == pg.K_RIGHT:
-                    self.snake1.move_x(1)
+                    self.snake1.move_direction = 'right'
                 elif event.key == pg.K_LEFT:
-                    self.snake1.move_x(-1)
+                    self.snake1.move_direction = 'left'
                 elif event.key == pg.K_UP:
                     self.snake2.move_y(-1)
                 elif event.key == pg.K_DOWN:
@@ -170,7 +172,18 @@ class Manager:
         pass
 
     def move(self):
-        pass
+        for snake in self.snakes:
+            if snake.move_direction == 'right':
+                snake.move_x(1)
+            if snake.move_direction == 'left':
+                snake.move_x(-1)
+            if snake.move_direction == 'down':
+                snake.move_y(1)
+            if snake.move_direction == 'up':
+                snake.move_y(-1)
+
+
+
 
     def collide(self):
         walls = []
