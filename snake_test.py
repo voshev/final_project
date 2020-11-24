@@ -214,7 +214,7 @@ class Manager:
                         self.food.pop(i)
                         self.new_food()
 
-    def block_direction(self):
+        def block_direction(self):
         for snake in self.snakes:
             n = snake.length
             for i in range(1, n - 2):
@@ -242,20 +242,10 @@ class Manager:
                       snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
                       snake.snake_blocks[i][0] < 0):
                     snake.snake_blocks[i][2] = 'left-up'
+            
+            snake.snake_blocks[0][2] = snake.move_direction
+            
             if n > 1:
-                if (snake.snake_blocks[0][0] - snake.snake_blocks[1][0] == 0 and snake.snake_blocks[0][1] -
-                        snake.snake_blocks[1][1] < 0):
-                    snake.snake_blocks[0][2] = 'up'
-                elif (snake.snake_blocks[0][0] - snake.snake_blocks[1][0] == 0 and snake.snake_blocks[0][1] -
-                      snake.snake_blocks[1][1] < 0):
-                    snake.snake_blocks[0][2] = 'down'
-                elif (snake.snake_blocks[0][0] - snake.snake_blocks[1][0] < 0 and snake.snake_blocks[0][1] -
-                      snake.snake_blocks[1][1] == 0):
-                    snake.snake_blocks[0][2] = 'left'
-                elif (snake.snake_blocks[0][0] - snake.snake_blocks[1][0] > 0 and snake.snake_blocks[0][1] -
-                      snake.snake_blocks[1][1] == 0):
-                    snake.snake_blocks[0][2] = 'left'
-
                 if (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] == 0 and
                         snake.snake_blocks[n - 1][1] - snake.snake_blocks[n - 2][1] < 0):
                     snake.snake_blocks[n - 1][2] = 'up'
