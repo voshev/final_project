@@ -137,9 +137,9 @@ class Manager:
 
         self.walls_update()
 
-        self.block_direction()
-
         self.collide()
+
+        self.block_direction()
 
         self.draw()
 
@@ -199,22 +199,23 @@ class Manager:
                 self.walls.append([-snake.width, y * snake.width])
                 self.walls.append([screen_size[0], y * snake.width])
         for snake in self.snakes:
-            for e in range(1, snake.length):
+            for e in range(1, snake.length - 1):
                 self.walls.append([snake.snake_blocks[e][0], snake.snake_blocks[e][1]])
 
     def collide(self):
         for snake in self.snakes:
-            for i in range(snake.length - 1):
-                for wall in self.walls:
-                    if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == wall:
-                        snake.move_direction = 0
+            for i in range(snake.length):
                 for i in range(len(self.food)):
                     if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == self.food[i].coord:
                         snake.grow()
                         self.food.pop(i)
                         self.new_food()
+                for wall in self.walls:
+                    if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == wall:
+                        snake.move_direction = 0
 
-        def block_direction(self):
+
+    def block_direction(self):
         for snake in self.snakes:
             n = snake.length
             for i in range(1, n - 2):
@@ -242,10 +243,10 @@ class Manager:
                       snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
                       snake.snake_blocks[i][0] < 0):
                     snake.snake_blocks[i][2] = 'left-up'
-            
+
             snake.snake_blocks[0][2] = snake.move_direction
-            
-            if n > 1:
+
+            if n > 30:
                 if (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] == 0 and
                         snake.snake_blocks[n - 1][1] - snake.snake_blocks[n - 2][1] < 0):
                     snake.snake_blocks[n - 1][2] = 'up'
