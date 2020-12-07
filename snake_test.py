@@ -30,7 +30,7 @@ red = (213, 50, 80)
 green = (0, 255, 0)
 blue = (50, 153, 213)
 
-screen_size = [1440, 900]
+screen_size = [800, 600]
 
 screen = pg.display.set_mode(screen_size)
 
