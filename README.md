@@ -1,5 +1,4 @@
-# final_project
-Змейка
+# Змейка
 
 Global Snake Project
 
