@@ -220,7 +220,7 @@ class Manager:
     def handle_events(self, events):
         done = False
         for snake in self.snakes:
-            if snake.lives == 0:
+            if snake.lives <= 0:
                 done = True
         for event in events:
             if event.type == pg.QUIT:
@@ -340,7 +340,7 @@ clock = pg.time.Clock()
 mgr = Manager()
 
 while not done:
-    clock.tick(8)
+    clock.tick(18)
     screen.fill(black)
 
     done = mgr.process(pg.event.get(), screen)
