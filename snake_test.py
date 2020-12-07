@@ -72,6 +72,7 @@ class Snake1:
 
     def draw(self):
         for block in self.snake_blocks:
+            pg.draw.rect(screen, self.color, [block[0], block[1], self.width, self.width])
 
             # рисует хвост
             if self.length >= 2:
@@ -339,7 +340,7 @@ clock = pg.time.Clock()
 mgr = Manager()
 
 while not done:
-    clock.tick(4)
+    clock.tick(8)
     screen.fill(black)
 
     done = mgr.process(pg.event.get(), screen)
