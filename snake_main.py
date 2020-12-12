@@ -17,15 +17,7 @@ def text_objects(text, font, font_color):
 
 
 def button(message, x, y, button_width, button_height, active_color, font_color, action=None):
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-
-    if (x < mouse[0] < x + button_width) and (y < mouse[1] < y + button_height):
-        pygame.draw.rect(game_window, active_color, (x, y, button_width, button_height))
-        if click[0] == 1 and action is not None:
-            action()
-    else:
-        pygame.draw.rect(game_window, active_color, (x, y, button_width, button_height))
+    pygame.draw.rect(game_window, active_color, (x, y, button_width, button_height))
 
     small_text = pygame.font.Font(os.path.join("fonts", "slkscr.ttf"), 30)
     text_surface, text_rect = text_objects(message, small_text, font_color)
@@ -37,37 +29,47 @@ def game_loop():
     pass
 
 
-def list_stop():
-    pass
-
-
-def list_of_levels():
-    button('2', 1110, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF, list_stop())
-    button('3', 1195, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF, list_stop())
-
-
-def list_of_answers(x, y):
-    button('YES', x, y, 80, 50, BUDDHA_GOLD, SKOBELOFF, list_stop())
-
-
 def main():
     pygame.init()
     pygame.display.set_caption("SNAKE!")
 
     game_window.blit(bg, (0, 0))
 
-    button('SNAKE!', 600, 750, 250, 50, SKOBELOFF, BUDDHA_GOLD, game_loop())
-    button('1', 1025, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF,  list_of_levels())
-    button('NO', 1025, 494, 80, 50, BUDDHA_GOLD, SKOBELOFF, list_of_answers(1110, 494))
-    button('NO', 1025, 593, 80, 50, BUDDHA_GOLD, SKOBELOFF, list_of_answers(1110, 593))
+    button('SNAKE!', 600, 750, 250, 50, SKOBELOFF, BUDDHA_GOLD)
+    button('1', 1025, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF)
+    button('NO', 1025, 494, 80, 50, BUDDHA_GOLD, SKOBELOFF)
+    button('NO', 1025, 593, 80, 50, BUDDHA_GOLD, SKOBELOFF)
 
     clock = pygame.time.Clock()
     finished = False
+    number = 0
     while not finished:
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 finished = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if (1025 < event.pos[0] < 1105) and (395 < event.pos[1] < 445):
+                    if event.button == 1:
+                        number += 1
+                        button(str(number), 1025, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF)
+                        if number >= 5:
+                            number = 0
+                    if event.button == 3:
+                        number -= 1
+                        if number <= 0:
+                            number = 1
+                        else:
+                            button(str(number), 1025, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF)
+
+                if (1025 < event.pos[0] < 1105) and (494 < event.pos[1] < 544):
+                    if event.button == 1:
+                        message_text = 'YES'
+                        button(message_text, 1025, 494, 80, 50, BUDDHA_GOLD, SKOBELOFF)
+                    if event.button == 3:
+                        message_text = 'NO'
+                        button(message_text, 1025, 494, 80, 50, BUDDHA_GOLD, SKOBELOFF)
+
         pygame.display.update()
 
     pygame.quit()
