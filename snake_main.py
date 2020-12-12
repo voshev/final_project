@@ -1,11 +1,12 @@
 import pygame
 import os
+from snake_test import Snake1, Snake2, Food, Manager
 
 FPS = 8
 size = screen_width, screen_height = 1440, 900
 SKOBELOFF = (0, 116, 107)
 BUDDHA_GOLD = (196, 184, 0)
-BLACK = (255, 255, 255)
+BLACK = (0, 0, 0)
 
 game_window = pygame.display.set_mode(size)
 bg = pygame.image.load(os.path.join("images", "main_background.png"))
@@ -26,7 +27,23 @@ def button(message, x, y, button_width, button_height, active_color, font_color,
 
 
 def game_loop():
-    pass
+    done = False
+    clock = pygame.time.Clock()
+
+    mgr = Manager()
+    screen_size = [800, 600]
+
+    screen = pygame.display.set_mode(screen_size)
+    while not done:
+        clock.tick(18)
+        screen.fill(BLACK)
+
+        done = mgr.process(pygame.event.get(), screen)
+
+        pygame.display.flip()
+        pygame.display.update()
+
+    pygame.quit()
 
 
 def main():
@@ -69,6 +86,8 @@ def main():
                     if event.button == 3:
                         message_text = 'NO'
                         button(message_text, 1025, 494, 80, 50, BUDDHA_GOLD, SKOBELOFF)
+                if (600 < event.pos[0] < 850) and (750 < event.pos[1] < 800):
+                    game_loop()
 
         pygame.display.update()
 

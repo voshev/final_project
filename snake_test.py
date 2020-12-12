@@ -332,19 +332,3 @@ class Manager:
                       snake.snake_blocks[n - 1][1] - snake.snake_blocks[n - 2][1] == 0):
                     snake.snake_blocks[n - 1][2] = 'right'
 
-
-done = False
-done1 = False
-clock = pg.time.Clock()
-
-mgr = Manager()
-
-while not done:
-    clock.tick(18)
-    screen.fill(black)
-
-    done = mgr.process(pg.event.get(), screen)
-
-    pg.display.flip()
-
-pg.quit()
