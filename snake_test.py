@@ -6,22 +6,24 @@ import os
 
 pg.init()
 
-horizontal = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-vertical = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-up_right = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-right_down = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-down_left = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-left_up = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
+apfel = pg.image.load(os.path.join("images", "Snake Images v2", "Food_apple.jpg"))
 
-head_right = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-head_down = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-head_left = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-head_up = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
+horizontal = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
+vertical =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
+up_right =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
+right_down = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
+down_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
+left_up =    pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
 
-tail_right = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-tail_down = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-tail_left = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
-tail_up = pg.image.load(os.path.join("images", "Snake Images", "Snake_main.jpg"))
+head_right = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_right.jpg"))
+head_down =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_down.jpg"))
+head_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_left.jpg"))
+head_up =    pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_up.jpg"))
+
+tail_right = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_right.jpg"))
+tail_down =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_down.jpg"))
+tail_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_left.jpg"))
+tail_up =    pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_up.jpg"))
 
 white = (255, 255, 255)
 yellow = (255, 255, 102)
@@ -71,6 +73,8 @@ class Snake1:
             self.snake_blocks.pop(self.length)
 
     def draw(self):
+
+
         for block in self.snake_blocks:
             pg.draw.rect(screen, self.color, [block[0], block[1], self.width, self.width])
 
@@ -185,6 +189,9 @@ class Food:
 
     def draw(self):
         pg.draw.rect(screen, self.color, [self.coord[0], self.coord[1], self.width, self.width])
+
+        block_coord = [self.coord[0], self.coord[1]]
+        screen.blit(apfel, apfel.get_rect(topleft=block_coord))
 
     pass
 
@@ -331,4 +338,3 @@ class Manager:
                 elif (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] > 0 and
                       snake.snake_blocks[n - 1][1] - snake.snake_blocks[n - 2][1] == 0):
                     snake.snake_blocks[n - 1][2] = 'right'
-
