@@ -7,6 +7,8 @@ size = screen_width, screen_height = 1440, 900
 SKOBELOFF = (0, 116, 107)
 BUDDHA_GOLD = (196, 184, 0)
 BLACK = (0, 0, 0)
+GREEN = (28, 248, 18)
+WHITE = (255, 255, 255)
 
 game_window = pygame.display.set_mode(size)
 bg = pygame.image.load(os.path.join("images", "main_background.png"))
@@ -29,24 +31,30 @@ def button(message, x, y, button_width, button_height, active_color, font_color,
 def game_loop():
     done = False
     clock = pygame.time.Clock()
-
+    small_text = pygame.font.Font(os.path.join("fonts", "slkscr.ttf"), 30)
     mgr = Manager()
+
     screen_size = [800, 600]
+   
 
     screen = pygame.display.set_mode(screen_size)
     while not done:
         clock.tick(18)
-        screen.fill(BLACK)
-
+        screen.fill(WHITE)
+        
         done = mgr.process(pygame.event.get(), screen)
-
+        n = mgr.snake1.length 
+        s = "WASD Snake:" + str(n-1)
+        text1 = small_text.render(s, False, BLACK)
+        screen.blit(text1, (0,0))
+        
         pygame.display.flip()
         pygame.display.update()
 
     pygame.quit()
 
 
-def main():
+def main():		
     pygame.init()
     pygame.display.set_caption("SNAKE!")
 
@@ -57,7 +65,7 @@ def main():
     button('NO', 1025, 494, 80, 50, BUDDHA_GOLD, SKOBELOFF)
     button('NO', 1025, 593, 80, 50, BUDDHA_GOLD, SKOBELOFF)
 
-    clock = pygame.time.Clock()
+    clock = pygame.time.Clock()	
     finished = False
     number = 0
     while not finished:
