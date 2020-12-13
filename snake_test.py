@@ -79,9 +79,26 @@ class Snake1:
         for block in self.snake_blocks:
             pg.draw.rect(screen, self.color, [block[0], block[1], self.width, self.width])
 
+
+
+            # рисует голову
+            if block[2] == 'right':
+                block_coord = [block[0], block[1]]
+                screen.blit(head_right, head_right.get_rect(topleft=block_coord))
+            elif block[2] == 'down':
+                block_coord = [block[0], block[1]]
+                screen.blit(head_down, head_down.get_rect(topleft=block_coord))
+            elif block[2] == 'left':
+                block_coord = [block[0], block[1]]
+                screen.blit(head_left, head_left.get_rect(topleft=block_coord))
+            elif block[2] == 'up':
+                block_coord = [block[0], block[1]]
+                screen.blit(head_up, head_up.get_rect(topleft=block_coord))
+
+
             # рисует хвост
             if self.length >= 2:
-                if block == self.snake_blocks[self.length-1]:
+                if block == self.snake_blocks[self.length - 1]:
                     if block[2] == 'up':
                         block_coord = [block[0], block[1]]
                         screen.blit(tail_up, tail_up.get_rect(topleft=block_coord))
@@ -95,20 +112,6 @@ class Snake1:
                         block_coord = [block[0], block[1]]
                         screen.blit(tail_left, tail_left.get_rect(topleft=block_coord))
 
-            # рисует голову
-            elif block == self.snake_blocks[0]:
-                if self.move_direction == 'right':
-                    block_coord = [block[0], block[1]]
-                    screen.blit(head_right, head_right.get_rect(topleft=block_coord))
-                elif self.move_direction == 'down':
-                    block_coord = [block[0], block[1]]
-                    screen.blit(head_down, head_down.get_rect(topleft=block_coord))
-                elif self.move_direction == 'left':
-                    block_coord = [block[0], block[1]]
-                    screen.blit(head_left, head_left.get_rect(topleft=block_coord))
-                elif self.move_direction == 'up':
-                    block_coord = [block[0], block[1]]
-                    screen.blit(head_up, head_up.get_rect(topleft=block_coord))
 
             # рисует туловищу
             if block[2] == 'horizontal':
@@ -203,8 +206,9 @@ class Manager:
         self.walls = []
         self.food = [Food(green)]
         self.snake1 = Snake1(red)
-        self.snake2 = Snake2(blue)
-        self.snakes = [self.snake1, self.snake2]
+        # self.snake2 = Snake2(blue)
+        # self.snakes = [self.snake1, self.snake2]
+        self.snakes = [self.snake1]
 
     def new_food(self):
         self.food.insert(0, Food(green))
@@ -345,6 +349,8 @@ class Manager:
                       snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
                       snake.snake_blocks[i][0] < 0):
                     snake.snake_blocks[i][2] = 'left-up'
+
+            snake.snake_blocks[0][2] = snake.move_direction
 
             if n >= 2:
                 if (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] == 0 and
