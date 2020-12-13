@@ -7,6 +7,7 @@ import os
 pg.init()
 
 apfel = pg.image.load(os.path.join("images", "Snake Images v2", "Food_apple.jpg"))
+apfel.set_colorkey((28, 248, 18))
 
 horizontal = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
 vertical =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
@@ -96,16 +97,16 @@ class Snake1:
 
             # рисует голову
             elif block == self.snake_blocks[0]:
-                if block[2] == 'right':
+                if self.move_direction == 'right':
                     block_coord = [block[0], block[1]]
                     screen.blit(head_right, head_right.get_rect(topleft=block_coord))
-                elif block[2] == 'down':
+                elif self.move_direction == 'down':
                     block_coord = [block[0], block[1]]
                     screen.blit(head_down, head_down.get_rect(topleft=block_coord))
-                elif block[2] == 'left':
+                elif self.move_direction == 'left':
                     block_coord = [block[0], block[1]]
                     screen.blit(head_left, head_left.get_rect(topleft=block_coord))
-                elif block[2] == 'up':
+                elif self.move_direction == 'up':
                     block_coord = [block[0], block[1]]
                     screen.blit(head_up, head_up.get_rect(topleft=block_coord))
 
@@ -217,6 +218,8 @@ class Manager:
 
         self.block_direction()
 
+        self.pass_through_screen_edge()
+
         self.draw()
 
         self.collide()
@@ -270,15 +273,33 @@ class Manager:
             if snake.move_direction == 'up':
                 snake.move_y(-1)
 
+    def pass_through_screen_edge(self):
+        for snake in self.snakes:
+            for block in snake.snake_blocks:
+                if block[0] >= screen_size[0]:
+                    block[0] = 0
+                elif block[0] <= -snake.width:
+                    block[0] = screen_size[0]-snake.width
+                if block[1] >= screen_size[1]:
+                    block[1] = 0
+                elif block[1] <= -snake.width:
+                    block[1] = screen_size[1]-snake.width
+
+
+
+
+        pass
+
+
     def walls_update(self):
         self.walls = []
-        for snake in self.snakes:
-            for t in range(int(screen_size[0] / snake.width)):
-                self.walls.append([t * snake.width, -snake.width])
-                self.walls.append([t * snake.width, screen_size[1]])
-            for y in range(int(screen_size[1] / snake.width)):
-                self.walls.append([-snake.width, y * snake.width])
-                self.walls.append([screen_size[0], y * snake.width])
+        # for snake in self.snakes:
+        #     for t in range(int(screen_size[0] / snake.width)):
+        #         self.walls.append([t * snake.width, -snake.width])
+        #         self.walls.append([t * snake.width, screen_size[1]])
+        #     for y in range(int(screen_size[1] / snake.width)):
+        #         self.walls.append([-snake.width, y * snake.width])
+        #         self.walls.append([screen_size[0], y * snake.width])
         for snake in self.snakes:
             for e in range(1, snake.length - 1):
                 self.walls.append([snake.snake_blocks[e][0], snake.snake_blocks[e][1]])
