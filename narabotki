@@ -205,18 +205,19 @@ class Food:
         screen.blit(apfel, apfel.get_rect(topleft=block_coord))
 
 class Lots_of_food:
-    def __init__(self, clock, coord=None, width=20):
+    def __init__(self, color, clock, coord=None, width=20):
         self.clock = clock
         self.width = width
+        self.color = color
         if coord == None:
             coord = [randint(0, int(screen_size[0] / self.width) - 1) * self.width,
                      randint(0, int(screen_size[1] / self.width) - 1) * self.width]
         self.coord = coord
     def draw(self):
-        pg.draw.rect(screen, yellow, [self.coord[0], self.coord[1], self.width, self.width])
+        pg.draw.rect(screen, self.color, [self.coord[0], self.coord[1], self.width, self.width])
 
-        # block_coord = [self.coord[0] - self.width/2, self.coord[1] - self.width/2]
-        # screen.blit(hyper_food, hyper_food.get_rect(topleft=block_coord))
+        block_coord = [self.coord[0] - self.width/2, self.coord[1] - self.width/2]
+        screen.blit(hyper_food, hyper_food.get_rect(topleft=block_coord))
 
 
 
@@ -225,7 +226,7 @@ class Manager:
     def __init__(self):
         self.food_live_time = 10
         self.walls = []
-        self.lots_of_food = [Lots_of_food(1000)]
+        self.lots_of_food = [Lots_of_food(green,1000000)]
         self.food = [Food(green, 1000000)]
         self.snake1 = Snake1(red)
         # self.snake2 = Snake2(blue)
@@ -272,9 +273,9 @@ class Manager:
         return done
 
     def hyper_food_apearing(self):
-        f =randint(0, 1000)
-        if f <= -1:
-            self.lots_of_food.append(Lots_of_food(1000))
+        f = randint(0, 1000)
+        if f <= 50:
+            self.lots_of_food.append(Lots_of_food(green,100000))
         pass
 
 
@@ -313,7 +314,7 @@ class Manager:
         for snake in self.snakes:
             snake.draw()
         for obj in self.lots_of_food:
-            obj.draw
+            obj.draw()
 
     def move(self):
         for snake in self.snakes:
