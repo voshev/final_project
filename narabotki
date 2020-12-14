@@ -16,7 +16,7 @@ blue = (50, 153, 213)
 apfel = pg.image.load(os.path.join("images", "Snake Images v2", "Food_apple.jpg"))
 # apfel.set_colorkey(white)
 
-hyper_food = pg.image.load(os.path.join("images", "Snake Images v2", "Hyper_food.jpg"))
+# hyper_food = pg.image.load(os.path.join("images", "Snake Images v2", "Hyper_food.jpg"))
 # apfel.set_colorkey(white)
 
 horizontal = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
@@ -216,8 +216,8 @@ class Lots_of_food:
     def draw(self):
         pg.draw.rect(screen, self.color, [self.coord[0], self.coord[1], self.width, self.width])
 
-        block_coord = [self.coord[0] - self.width/2, self.coord[1] - self.width/2]
-        screen.blit(hyper_food, hyper_food.get_rect(topleft=block_coord))
+        # block_coord = [self.coord[0] - self.width/2, self.coord[1] - self.width/2]
+        # screen.blit(hyper_food, hyper_food.get_rect(topleft=block_coord))
 
 
 
@@ -366,12 +366,13 @@ class Manager:
                         snake.grow()
                         self.food.pop(j)
                         self.new_food(1000000)
-                for k in range(len(self.lots_of_food)):
+                for k in range(len(self.lots_of_food) - 1):
                     if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == self.lots_of_food[k].coord:
                         snake.grow()
                         self.lots_of_food.pop(k)
+                        self.generate_a_lot_of_food()
                 for wall in self.walls:
-                    if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == wall:
+                    if [snake.snake_blocks[0][0], snake.snake_blocks[0][1]] == wall:
                         snake.move_direction = 0
                         snake.lives -= 1
 
@@ -419,3 +420,19 @@ class Manager:
                 elif (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] > 0 and
                       snake.snake_blocks[n - 1][1] - snake.snake_blocks[n - 2][1] == 0):
                     snake.snake_blocks[n - 1][2] = 'right'
+
+done = False
+done1 = False
+clock = pg.time.Clock()
+
+mgr = Manager()
+
+while not done:
+    clock.tick(18)
+    screen.fill(black)
+
+    done = mgr.process(pg.event.get(), screen)
+
+    pg.display.flip()
+
+pg.quit()
