@@ -6,7 +6,7 @@ import os
 
 pg.init()
 
-white = (255, 255, 255)
+white = (255, 255, 255) #narabotka(Miras)
 yellow = (255, 255, 102)
 black = (0, 0, 0)
 red = (213, 50, 80)
