@@ -8,28 +8,28 @@ import os
 
 pg.init()
 
-apfel = pg.image.load(os.path.join("images", "Snake Images v2", "Food_apple.jpg"))
+apfel = pg.image.load(os.path.join("images", "Food_apple.jpg"))
 apfel.set_colorkey((28, 248, 18))
 
 #load game textures
-horizontal = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
-vertical =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main_1.jpg"))
-up_right =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
-right_down = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
-down_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
-left_up =    pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
+horizontal = pg.image.load(os.path.join("images", "Snake_main_horizontal.jpg"))
+vertical =   pg.image.load(os.path.join("images", "Snake_main_vertical.jpg"))
+up_right =   pg.image.load(os.path.join("images", "Snake_main.jpg"))
+right_down = pg.image.load(os.path.join("images", "Snake_main.jpg"))
+down_left =  pg.image.load(os.path.join("images", "Snake_main.jpg"))
+left_up =    pg.image.load(os.path.join("images", "Snake_main.jpg"))
 
-head_right = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_right.jpg"))
-head_down =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_down.jpg"))
-head_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_left.jpg"))
-head_up =    pg.image.load(os.path.join("images", "Snake Images v2", "Snake_head_up.jpg"))
+head_right = pg.image.load(os.path.join("images", "Snake_head_right.jpg"))
+head_down =  pg.image.load(os.path.join("images", "Snake_head_down.jpg"))
+head_left =  pg.image.load(os.path.join("images", "Snake_head_left.jpg"))
+head_up =    pg.image.load(os.path.join("images", "Snake_head_up.jpg"))
 
-tail_right = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_right.jpg"))
-tail_down =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_down.jpg"))
-tail_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_left.jpg"))
-tail_up =    pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_up.jpg"))
+tail_right = pg.image.load(os.path.join("images", "Snake_tail_left.jpg"))
+tail_down =  pg.image.load(os.path.join("images", "Snake_tail_up.jpg"))
+tail_left =  pg.image.load(os.path.join("images", "Snake_tail_right.jpg"))
+tail_up =    pg.image.load(os.path.join("images", "Snake_tail_down.jpg"))
 
-brick_wall = pg.image.load(os.path.join("images", "Snake Images v2", "Brick_wall.png"))
+brick_wall = pg.image.load(os.path.join("images", "Brick_wall.png"))
 
 white = (255, 255, 255)
 yellow = (255, 255, 102)
