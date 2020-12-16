@@ -71,7 +71,9 @@ def game_loop(Snake_FPS):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     done = True
-     
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        done = True
         pygame.display.update()
 
     pygame.quit()
