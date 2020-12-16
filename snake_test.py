@@ -66,7 +66,7 @@ class Manager:
     def __init__(self):
         self.walls = []
         self.food = [Food(GREEN)]
-        self.snake1 = Snake1(RED)
+        self.snake1 = Snake1(GREEN)
         # self.snake2 = Snake2(blue)
         # self.snakes = [self.snake1, self.snake2]
         self.snakes = [self.snake1]
