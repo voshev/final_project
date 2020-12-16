@@ -1,6 +1,6 @@
 import pygame
 import os
-from snake_test import Snake1, Snake2, Food, Manager
+from snake_test import Snake1, Food, Manager
 from snake_colors import *
 
 #set fps
