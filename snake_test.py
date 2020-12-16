@@ -99,7 +99,9 @@ class Food:
         self.coord = coord
 
     def draw(self):
-        # draw food
+        """
+        draw food
+        """
         pg.draw.rect(screen, self.color, [self.coord[0], self.coord[1], self.width, self.width])
 
         block_coord = [self.coord[0], self.coord[1]]
