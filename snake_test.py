@@ -213,13 +213,13 @@ class Manager:
         #add and update objects snake couldn't pass throught
         self.walls = [[160,100],[160,120],[160,140],[160,160],[160,180],[160,200],[160,220],[160,240],[160,260],[160,280],[160,300],
         [220,120],[240,120],[260,120],[280,120],[300,120],[320,120],[340,120],[360,120],[380,120],[400,120]]
+        self.blocks = []
         for wall in self.walls:
             screen.blit(brick_wall, brick_wall.get_rect(topleft=wall))
-            for snake in self.snakes:
-        for block in snake.snake_blocks:
-            if block != snake.snake_blocks[0]:
-                self.walls.append([block[0], block[1]])
-
+        for snake in self.snakes:
+            for e in range(1, snake.length - 1):
+                self.blocks.append([snake.snake_blocks[e][0], snake.snake_blocks[e][1]])
+ 
 
     def collide(self):
         #hendle snake collisions with walls and food
@@ -232,6 +232,10 @@ class Manager:
                         self.new_food()
                 for wall in self.walls:
                     if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == wall:
+                        snake.move_direction = 0
+                        snake.lives -= 1
+                for block in self.blocks:
+                    if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == block:
                         snake.move_direction = 0
                         snake.lives -= 1
 
