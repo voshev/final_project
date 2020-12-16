@@ -2,8 +2,11 @@ import pygame
 import os
 from snake_test import Snake1, Snake2, Food, Manager
 
+#set fps
 FPS = 8
+#set screen size
 size = screen_width, screen_height = 1440, 900
+#colors
 SKOBELOFF = (0, 116, 107)
 BUDDHA_GOLD = (196, 184, 0)
 BLACK = (0, 0, 0)
@@ -20,6 +23,14 @@ def text_objects(text, font, font_color):
 
 
 def button(message, x, y, button_width, button_height, active_color, font_color, action=None):
+    '''
+    Draws button
+    :param message: text that programm draws
+           x,y: coordinates of rectangle with text
+           button_width, button_height: size of button
+           active_color: color of buttons background
+           font_color: color of font
+    '''
     pygame.draw.rect(game_window, active_color, (x, y, button_width, button_height))
 
     small_text = pygame.font.Font(os.path.join("fonts", "slkscr.ttf"), 30)
@@ -29,6 +40,9 @@ def button(message, x, y, button_width, button_height, active_color, font_color,
 
 
 def game_loop():
+    '''
+    The main programm loop wich draws snake window
+    '''
     done = False
     clock = pygame.time.Clock()
     small_text = pygame.font.Font(os.path.join("fonts", "slkscr.ttf"), 30)
@@ -55,6 +69,9 @@ def game_loop():
 
 
 def main():		
+    '''
+    Function that draws main Menu with options of choose the level and starting the game
+    '''
     pygame.init()
     pygame.display.set_caption("SNAKE!")
 
@@ -104,3 +121,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
