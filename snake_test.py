@@ -215,6 +215,10 @@ class Manager:
         [220,120],[240,120],[260,120],[280,120],[300,120],[320,120],[340,120],[360,120],[380,120],[400,120]]
         for wall in self.walls:
             screen.blit(brick_wall, brick_wall.get_rect(topleft=wall))
+            for snake in self.snakes:
+        for block in snake.snake_blocks:
+            if block != snake.snake_blocks[0]:
+                self.walls.append([block[0], block[1]])
 
 
     def collide(self):
