@@ -110,7 +110,9 @@ class Food:
 from snake_module import Snake1
 
 class Manager:
-    #class hendeking main game pcocces
+    """
+    class hendeling main game pcocces
+    """
     def __init__(self):
         self.walls = []
         self.food = [Food(green)]
@@ -120,11 +122,15 @@ class Manager:
         self.snakes = [self.snake1]
 
     def new_food(self):
-        #create new food
+        """
+        create new food
+        """
         self.food.insert(0, Food(green))
 
     def process(self, events, screen):
-        #main game processes
+        """
+        main game processes
+        """
         done = self.handle_events(events)
 
         self.move()
@@ -143,7 +149,9 @@ class Manager:
         return done
 
     def handle_events(self, events):
-        #work with comands got from user
+        """
+        work with comands got from user
+        """
         done = False
         for snake in self.snakes:
             if snake.lives <= 0:
@@ -173,14 +181,18 @@ class Manager:
         return done
 
     def draw(self):
-        #activate objekts draw funktions
+        """
+        activate objekts draw funktions
+        """
         for food in self.food:
             food.draw()
         for snake in self.snakes:
             snake.draw()
 
     def move(self):
-        #activate objekts moove funktions
+        """
+        activate objekts moove funktions
+        """
         for snake in self.snakes:
             if snake.move_direction == 'right':
                 snake.move_x(1)
@@ -192,7 +204,9 @@ class Manager:
                 snake.move_y(-1)
 
     def pass_through_screen_edge(self):
-        #allow snake to pass throght screan edges apearin on oposit side
+        """
+        allow snake to pass throght screan edges apearin on the opposite side
+        """
         for snake in self.snakes:
             for block in snake.snake_blocks:
                 if block[0] >= screen_size[0]:
@@ -210,7 +224,9 @@ class Manager:
 
 
     def walls_update(self):
-        #add and update objects snake couldn't pass throught
+        """
+        add and update objects snake couldn't pass throught
+        """
         self.walls = [[160,100],[160,120],[160,140],[160,160],[160,180],[160,200],[160,220],[160,240],[160,260],[160,280],[160,300],
         [220,120],[240,120],[260,120],[280,120],[300,120],[320,120],[340,120],[360,120],[380,120],[400,120]]
         self.blocks = []
@@ -222,7 +238,9 @@ class Manager:
  
 
     def collide(self):
-        #hendle snake collisions with walls and food
+        """
+        hendle snake collisions with walls and food
+        """
         for snake in self.snakes:
             for i in range(snake.length):
                 for i in range(len(self.food)):
@@ -240,14 +258,17 @@ class Manager:
                         snake.lives -= 1                    
         for i in range(len(self.food)):
             for wall in self.snakes:
-                if wall == self.food[i]:
+                if wall == self.food[i].coord:
                     self.food.pop(i)
                     self.new_food()
                     
                     
     def block_direction(self):
-        #update snake blocks textures
+        """
+        update snake blocks textures
+        """
         for snake in self.snakes:
+            
             #updqate body
             n = snake.length
             for i in range(1, n-1):
