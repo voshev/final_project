@@ -29,6 +29,8 @@ tail_down =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail
 tail_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_left.jpg"))
 tail_up =    pg.image.load(os.path.join("images", "Snake Images v2", "Snake_tail_up.jpg"))
 
+brick_wall = pg.image.load(os.path.join("images", "Snake Images v2", "Brick_wall.png"))
+
 white = (255, 255, 255)
 yellow = (255, 255, 102)
 black = (0, 0, 0)
@@ -209,17 +211,11 @@ class Manager:
 
     def walls_update(self):
         #add and update objects snake couldn't pass throught
-        self.walls = []
-        # for snake in self.snakes:
-        #     for t in range(int(screen_size[0] / snake.width)):
-        #         self.walls.append([t * snake.width, -snake.width])
-        #         self.walls.append([t * snake.width, screen_size[1]])
-        #     for y in range(int(screen_size[1] / snake.width)):
-        #         self.walls.append([-snake.width, y * snake.width])
-        #         self.walls.append([screen_size[0], y * snake.width])
-        for snake in self.snakes:
-            for e in range(1, snake.length - 1):
-                self.walls.append([snake.snake_blocks[e][0], snake.snake_blocks[e][1]])
+        self.walls = [[160,100],[160,120],[160,140],[160,160],[160,180],[160,200],[160,220],[160,240],[160,260],[160,280],[160,300],
+        [220,120],[240,120],[260,120],[280,120],[300,120],[320,120],[340,120],[360,120],[380,120],[400,120]]
+        for wall in self.walls:
+            screen.blit(brick_wall, brick_wall.get_rect(topleft=wall))
+
 
     def collide(self):
         #hendle snake collisions with walls and food
