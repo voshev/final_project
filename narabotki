@@ -436,3 +436,62 @@ while not done:
     pg.display.flip()
 
 pg.quit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def block_direction(self):
+        # update snake blocks textures
+        for snake in self.snakes:
+
+            snake.snake_blocks[0][2] = snake.move_direction
+
+            # update body
+            n = snake.length
+
+            if n >= 2:
+                if snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] == 0 and snake.snake_blocks[n - 1][1] - \
+                        snake.snake_blocks[n - 2][1] < 0:
+                    snake.snake_blocks[n - 1][2] = 'up'
+                if (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] == 0 and snake.snake_blocks[n - 1][1] -
+                        snake.snake_blocks[n - 2][1] < 0):
+                    snake.snake_blocks[n - 1][2] = 'down'
+                if snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] < 0 and snake.snake_blocks[n - 1][1] - \
+                        snake.snake_blocks[n - 2][1] == 0:
+                    snake.snake_blocks[n - 1][2] = 'left'
+                if snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] > 0 and snake.snake_blocks[n - 1][1] - \
+                        snake.snake_blocks[n - 2][1] == 0:
+                    snake.snake_blocks[n - 1][2] = 'right'
+
+            for i in range(1, n - 1):
+                if (snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0] == 0):
+                    snake.snake_blocks[i][2] = 'vertical'
+                if (snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] == 0):
+                    snake.snake_blocks[i][2] = 'horizontal'
+                if (snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1]) > 0 and snake.snake_blocks[i - 1][
+                    0] + snake.snake_blocks[i + 1][0] - 2 * snake.snake_blocks[i][0] > 0:
+                    snake.snake_blocks[i][2] = 'up-right'
+                if (snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1]) > 0 and snake.snake_blocks[i - 1][
+                    0] + snake.snake_blocks[i + 1][0] - 2 * snake.snake_blocks[i][0] < 0:
+                    snake.snake_blocks[i][2] = 'down-left'
+                if (snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1]) < 0 and snake.snake_blocks[i - 1][
+                    0] + snake.snake_blocks[i + 1][0] - 2 * snake.snake_blocks[i][0] > 0:
+                    snake.snake_blocks[i][2] = 'right-down'
+                if (snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1]) < 0 and snake.snake_blocks[i - 1][
+                    0] + snake.snake_blocks[i + 1][0] - 2 * snake.snake_blocks[i][0] < 0:
+                    snake.snake_blocks[i][2] = 'left-up'
