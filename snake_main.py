@@ -1,12 +1,19 @@
 import pygame
 import os
-from snake_test import Snake1, Food, Manager
-from snake_colors import *
+from snake_test import Snake1, Snake2, Food, Manager
 
 #set fps
-FPS = 8
+FPS = 18
+
 #set screen size
 size = screen_width, screen_height = 1440, 900
+#colors
+SKOBELOFF = (0, 116, 107)
+BUDDHA_GOLD = (196, 184, 0)
+BLACK = (0, 0, 0)
+GREEN = (28, 248, 18)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
 
 game_window = pygame.display.set_mode(size)
 bg = pygame.image.load(os.path.join("images", "main_background.png"))
@@ -34,13 +41,14 @@ def button(message, x, y, button_width, button_height, active_color, font_color,
     game_window.blit(text_surface, text_rect)
 
 
-def game_loop():
+def game_loop(Snake_FPS):
     '''
     The main programm loop wich draws snake window
     '''
     done = False
     clock = pygame.time.Clock()
     small_text = pygame.font.Font(os.path.join("fonts", "slkscr.ttf"), 30)
+    big_text = pygame.font.Font(os.path.join("fonts", "slkscr.ttf"), 60)
     mgr = Manager()
 
     screen_size = [800, 600]
@@ -48,16 +56,27 @@ def game_loop():
 
     screen = pygame.display.set_mode(screen_size)
     while not done:
-        clock.tick(18)
+        clock.tick(Snake_FPS)
         screen.fill(WHITE)
-        
-        done = mgr.process(pygame.event.get(), screen)
         n = mgr.snake1.length 
         s = "WASD Snake:" + str(n-1)
         text1 = small_text.render(s, False, BLACK)
-        screen.blit(text1, (0,0))
+        game_over_message = "GAME OVER" 
+        game_over_text = big_text.render(game_over_message, False, RED)
+        score_message = "SCORE:" + str(n-1)
+        score_text = big_text.render(score_message, False, BLACK)
         
-        pygame.display.flip()
+        if mgr.snake1.lives == 1:
+            done = mgr.process(pygame.event.get(), screen)
+            screen.blit(text1, (0,0))
+        if mgr.snake1.lives < 1:
+            screen.fill(WHITE)
+            screen.blit(game_over_text, (200,150))
+            screen.blit(score_text, (250,200))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done = True
+     
         pygame.display.update()
 
     pygame.quit()
@@ -67,6 +86,8 @@ def main():
     '''
     Function that draws main Menu with options of choose the level and starting the game
     '''
+    Snake_FPS = 18
+    
     pygame.init()
     pygame.display.set_caption("SNAKE!")
 
@@ -89,6 +110,7 @@ def main():
                 if (1025 < event.pos[0] < 1105) and (395 < event.pos[1] < 445):
                     if event.button == 1:
                         number += 1
+                        Snake_FPS += 5
                         button(str(number), 1025, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF)
                         if number >= 5:
                             number = 0
@@ -107,9 +129,10 @@ def main():
                         message_text = 'NO'
                         button(message_text, 1025, 494, 80, 50, BUDDHA_GOLD, SKOBELOFF)
                 if (600 < event.pos[0] < 850) and (750 < event.pos[1] < 800):
-                    game_loop()
+                    game_loop(Snake_FPS)
 
-        pygame.display.update()
+        pygame.init()
+        pygame.display.flip()
 
     pygame.quit()
 
