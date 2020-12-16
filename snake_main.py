@@ -1,19 +1,14 @@
 import pygame
 import os
 from snake_test import Snake1, Snake2, Food, Manager
+from snake_colors import *
 
 #set fps
 FPS = 18
 
 #set screen size
 size = screen_width, screen_height = 1440, 900
-#colors
-SKOBELOFF = (0, 116, 107)
-BUDDHA_GOLD = (196, 184, 0)
-BLACK = (0, 0, 0)
-GREEN = (28, 248, 18)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
+
 
 game_window = pygame.display.set_mode(size)
 bg = pygame.image.load(os.path.join("images", "main_background.png"))
