@@ -9,8 +9,9 @@ pg.init()
 apfel = pg.image.load(os.path.join("images", "Snake Images v2", "Food_apple.jpg"))
 apfel.set_colorkey((28, 248, 18))
 
+#load game textures
 horizontal = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
-vertical =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
+vertical =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main_1.jpg"))
 up_right =   pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
 right_down = pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
 down_left =  pg.image.load(os.path.join("images", "Snake Images v2", "Snake_main.jpg"))
@@ -39,7 +40,6 @@ screen = pg.display.set_mode(screen_size)
 
 
 class Snake1:
-    # предпологается, что snake1 на стрелочках snake2 на awsd в остальном они одинаковы
     def __init__(self, color, lives=1, start_coord=None, length=1, width=20, move_direction=0):
         self.lives = lives
         self.move_direction = move_direction
@@ -54,6 +54,7 @@ class Snake1:
         pass
 
     def move_x(self, dir):
+        #provides movement along the X axis
         if dir == 1:
             self.snake_blocks.insert(0,
                                      [self.snake_blocks[0][0] + self.width, self.snake_blocks[0][1], 'right'])
@@ -64,6 +65,7 @@ class Snake1:
             self.snake_blocks.pop(self.length)
 
     def move_y(self, dir):
+        # provides movement along the X axis
         if dir == 1:
             self.snake_blocks.insert(0,
                                      [self.snake_blocks[0][0], self.snake_blocks[0][1] + self.width, 'down'])
@@ -74,29 +76,29 @@ class Snake1:
             self.snake_blocks.pop(self.length)
 
     def draw(self):
-
-
+        # draw snake blocks
         for block in self.snake_blocks:
             pg.draw.rect(screen, self.color, [block[0], block[1], self.width, self.width])
 
 
 
-            # рисует голову
-            if block[2] == 'right':
-                block_coord = [block[0], block[1]]
-                screen.blit(head_right, head_right.get_rect(topleft=block_coord))
-            elif block[2] == 'down':
-                block_coord = [block[0], block[1]]
-                screen.blit(head_down, head_down.get_rect(topleft=block_coord))
-            elif block[2] == 'left':
-                block_coord = [block[0], block[1]]
-                screen.blit(head_left, head_left.get_rect(topleft=block_coord))
-            elif block[2] == 'up':
-                block_coord = [block[0], block[1]]
-                screen.blit(head_up, head_up.get_rect(topleft=block_coord))
+            # draw head
+            if block == self.snake_blocks[0]:
+                if block[2] == 'right':
+                    block_coord = [block[0], block[1]]
+                    screen.blit(head_right, head_right.get_rect(topleft=block_coord))
+                elif block[2] == 'down':
+                    block_coord = [block[0], block[1]]
+                    screen.blit(head_down, head_down.get_rect(topleft=block_coord))
+                elif block[2] == 'left':
+                    block_coord = [block[0], block[1]]
+                    screen.blit(head_left, head_left.get_rect(topleft=block_coord))
+                elif block[2] == 'up':
+                    block_coord = [block[0], block[1]]
+                    screen.blit(head_up, head_up.get_rect(topleft=block_coord))
 
 
-            # рисует хвост
+            # draw tail
             if self.length >= 2:
                 if block == self.snake_blocks[self.length - 1]:
                     if block[2] == 'up':
@@ -113,25 +115,38 @@ class Snake1:
                         screen.blit(tail_left, tail_left.get_rect(topleft=block_coord))
 
 
-            # рисует туловищу
+            # draw boody
             if block[2] == 'horizontal':
                 block_coord = [block[0], block[1]]
                 screen.blit(horizontal, horizontal.get_rect(topleft=block_coord))
             elif block[2] == 'vertical':
                 block_coord = [block[0], block[1]]
                 screen.blit(vertical, vertical.get_rect(topleft=block_coord))
-            elif block[2] == 'up_right':
-                block_coord = [block[0], block[1]]
-                screen.blit(up_right, up_right.get_rect(topleft=block_coord))
-            elif block[2] == 'right_down':
-                block_coord = [block[0], block[1]]
-                screen.blit(right_down, right_down.get_rect(topleft=block_coord))
-            elif block[2] == 'down_left':
-                block_coord = [block[0], block[1]]
-                screen.blit(down_left, down_left.get_rect(topleft=block_coord))
-            elif block[2] == 'left_up':
-                block_coord = [block[0], block[1]]
-                screen.blit(left_up, left_up.get_rect(topleft=block_coord))
+            # elif block[2] == 'up_right':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(up_right, up_right.get_rect(topleft=block_coord))
+            # elif block[2] == 'right_down':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(right_down, right_down.get_rect(topleft=block_coord))
+            # elif block[2] == 'down_left':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(down_left, down_left.get_rect(topleft=block_coord))
+            # elif block[2] == 'left_up':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(left_up, left_up.get_rect(topleft=block_coord))
+
+            # if block[2] == 'right':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(head_right, head_right.get_rect(topleft=block_coord))
+            # elif block[2] == 'down':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(head_down, head_down.get_rect(topleft=block_coord))
+            # elif block[2] == 'left':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(head_left, head_left.get_rect(topleft=block_coord))
+            # elif block[2] == 'up':
+            #     block_coord = [block[0], block[1]]
+            #     screen.blit(head_up, head_up.get_rect(topleft=block_coord))
 
 
     def grow(self):
@@ -183,6 +198,7 @@ class Snake2:
 
 
 class Food:
+    #food class
     def __init__(self, color, coord=None, width=20):
         self.color = color
         self.width = width
@@ -192,6 +208,7 @@ class Food:
         self.coord = coord
 
     def draw(self):
+        # draw food
         pg.draw.rect(screen, self.color, [self.coord[0], self.coord[1], self.width, self.width])
 
         block_coord = [self.coord[0], self.coord[1]]
@@ -201,7 +218,7 @@ class Food:
 
 
 class Manager:
-
+    #class hendeking main game pcocces
     def __init__(self):
         self.walls = []
         self.food = [Food(green)]
@@ -211,9 +228,11 @@ class Manager:
         self.snakes = [self.snake1]
 
     def new_food(self):
+        #create new food
         self.food.insert(0, Food(green))
 
     def process(self, events, screen):
+        #main game processes
         done = self.handle_events(events)
 
         self.move()
@@ -232,6 +251,7 @@ class Manager:
         return done
 
     def handle_events(self, events):
+        #work with comands got from user
         done = False
         for snake in self.snakes:
             if snake.lives <= 0:
@@ -261,12 +281,14 @@ class Manager:
         return done
 
     def draw(self):
+        #activate objekts draw funktions
         for food in self.food:
             food.draw()
         for snake in self.snakes:
             snake.draw()
 
     def move(self):
+        #activate objekts moove funktions
         for snake in self.snakes:
             if snake.move_direction == 'right':
                 snake.move_x(1)
@@ -278,6 +300,7 @@ class Manager:
                 snake.move_y(-1)
 
     def pass_through_screen_edge(self):
+        #allow snake to pass throght screan edges apearin on oposit side
         for snake in self.snakes:
             for block in snake.snake_blocks:
                 if block[0] >= screen_size[0]:
@@ -292,10 +315,10 @@ class Manager:
 
 
 
-        pass
 
 
     def walls_update(self):
+        #add and update objects snake couldn't pass throught
         self.walls = []
         # for snake in self.snakes:
         #     for t in range(int(screen_size[0] / snake.width)):
@@ -309,6 +332,7 @@ class Manager:
                 self.walls.append([snake.snake_blocks[e][0], snake.snake_blocks[e][1]])
 
     def collide(self):
+        #hendle snake collisions with walls and food
         for snake in self.snakes:
             for i in range(snake.length):
                 for i in range(len(self.food)):
@@ -322,36 +346,40 @@ class Manager:
                         snake.lives -= 1
 
     def block_direction(self):
+        #update snake blocks textures
         for snake in self.snakes:
+            #updqate body
             n = snake.length
             for i in range(1, n-1):
                 if (snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0] == 0):
                     snake.snake_blocks[i][2] = 'vertical'
                 elif (snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] == 0):
                     snake.snake_blocks[i][2] = 'horizontal'
-                elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
-                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] > 0) and
-                      snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
-                      snake.snake_blocks[i][0] > 0):
-                    snake.snake_blocks[i][2] = 'up-right'
-                elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
-                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] > 0) and
-                      snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
-                      snake.snake_blocks[i][0] < 0):
-                    snake.snake_blocks[i][2] = 'down-left'
-                elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
-                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] < 0) and
-                      snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
-                      snake.snake_blocks[i][0] > 0):
-                    snake.snake_blocks[i][2] = 'right-down'
-                elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
-                        snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] < 0) and
-                      snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
-                      snake.snake_blocks[i][0] < 0):
-                    snake.snake_blocks[i][2] = 'left-up'
+                # elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                #         snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] > 0) and
+                #       snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
+                #       snake.snake_blocks[i][0] > 0):
+                #     snake.snake_blocks[i][2] = 'up-right'
+                # elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                #         snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] > 0) and
+                #       snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
+                #       snake.snake_blocks[i][0] < 0):
+                #     snake.snake_blocks[i][2] = 'down-left'
+                # elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                #         snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] < 0) and
+                #       snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
+                #       snake.snake_blocks[i][0] > 0):
+                #     snake.snake_blocks[i][2] = 'right-down'
+                # elif ((snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0]) * (
+                #         snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] < 0) and
+                #       snake.snake_blocks[i - 1][0] + snake.snake_blocks[i + 1][0] - 2 *
+                #       snake.snake_blocks[i][0] < 0):
+                #     snake.snake_blocks[i][2] = 'left-up'
 
+            #update head
             snake.snake_blocks[0][2] = snake.move_direction
 
+            #update tail
             if n >= 2:
                 if (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] == 0 and
                         snake.snake_blocks[n - 1][1] - snake.snake_blocks[n - 2][1] < 0):
