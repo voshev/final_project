@@ -237,8 +237,14 @@ class Manager:
                 for block in self.blocks:
                     if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == block:
                         snake.move_direction = 0
-                        snake.lives -= 1
-
+                        snake.lives -= 1                    
+        for i in range(len(self.food)):
+            for wall in self.snakes:
+                if wall == self.food[i]:
+                    self.food.pop(i)
+                    self.new_food()
+                    
+                    
     def block_direction(self):
         #update snake blocks textures
         for snake in self.snakes:
