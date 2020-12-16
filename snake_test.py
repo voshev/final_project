@@ -1,95 +1,40 @@
 import pygame as pg
-import time
-import numpy as np
-from random import randint, gauss
+from random import randint
 import os
-
-
+from snake_colors import *
 
 pg.init()
 
 apfel = pg.image.load(os.path.join("images", "Food_apple.jpg"))
 apfel.set_colorkey((28, 248, 18))
 
-#load game textures
+# load game textures
 horizontal = pg.image.load(os.path.join("images", "Snake_main_horizontal.jpg"))
-vertical =   pg.image.load(os.path.join("images", "Snake_main_vertical.jpg"))
-up_right =   pg.image.load(os.path.join("images", "Snake_main.jpg"))
+vertical = pg.image.load(os.path.join("images", "Snake_main_vertical.jpg"))
+up_right = pg.image.load(os.path.join("images", "Snake_main.jpg"))
 right_down = pg.image.load(os.path.join("images", "Snake_main.jpg"))
-down_left =  pg.image.load(os.path.join("images", "Snake_main.jpg"))
-left_up =    pg.image.load(os.path.join("images", "Snake_main.jpg"))
+down_left = pg.image.load(os.path.join("images", "Snake_main.jpg"))
+left_up = pg.image.load(os.path.join("images", "Snake_main.jpg"))
 
 head_right = pg.image.load(os.path.join("images", "Snake_head_right.jpg"))
-head_down =  pg.image.load(os.path.join("images", "Snake_head_down.jpg"))
-head_left =  pg.image.load(os.path.join("images", "Snake_head_left.jpg"))
-head_up =    pg.image.load(os.path.join("images", "Snake_head_up.jpg"))
+head_down = pg.image.load(os.path.join("images", "Snake_head_down.jpg"))
+head_left = pg.image.load(os.path.join("images", "Snake_head_left.jpg"))
+head_up = pg.image.load(os.path.join("images", "Snake_head_up.jpg"))
 
 tail_right = pg.image.load(os.path.join("images", "Snake_tail_left.jpg"))
-tail_down =  pg.image.load(os.path.join("images", "Snake_tail_up.jpg"))
-tail_left =  pg.image.load(os.path.join("images", "Snake_tail_right.jpg"))
-tail_up =    pg.image.load(os.path.join("images", "Snake_tail_down.jpg"))
+tail_down = pg.image.load(os.path.join("images", "Snake_tail_up.jpg"))
+tail_left = pg.image.load(os.path.join("images", "Snake_tail_right.jpg"))
+tail_up = pg.image.load(os.path.join("images", "Snake_tail_down.jpg"))
 
 brick_wall = pg.image.load(os.path.join("images", "Brick_wall.png"))
-
-white = (255, 255, 255)
-yellow = (255, 255, 102)
-black = (0, 0, 0)
-red = (213, 50, 80)
-green = (0, 255, 0)
-blue = (50, 153, 213)
 
 screen_size = [800, 600]
 
 screen = pg.display.set_mode(screen_size)
 
 
-
-class Snake2:
-    # предпологается, что snake1 на стрелочках snake2 на awsd в остальном они одинаковы
-    def __init__(self, color, lives=1, coord=None, length=1, width=20, move_direction=0):
-        self.lives = lives
-        self.move_direction = move_direction
-        self.color = color
-        self.length = length
-        self.width = width
-        if coord == None:
-            coord = [randint(0, int(screen_size[0] / self.width) - 1) * self.width,
-                     randint(0, int(screen_size[1] / self.width) - 1) * self.width, 'right']
-        self.coord = coord
-        self.snake_blocks = [self.coord]
-        pass
-
-    def move_x(self, dir):
-        if dir == 1:
-            self.snake_blocks.insert(0,
-                                     [self.snake_blocks[0][0] + self.width, self.snake_blocks[0][1], 'right'])
-        elif dir == -1:
-            self.snake_blocks.insert(0,
-                                     [self.snake_blocks[0][0] - self.width, self.snake_blocks[0][1], 'left'])
-        if self.length + 1 == len(self.snake_blocks):
-            self.snake_blocks.pop(self.length)
-
-    def move_y(self, dir):
-        if dir == 1:
-            self.snake_blocks.insert(0,
-                                     [self.snake_blocks[0][0], self.snake_blocks[0][1] + self.width, 'down'])
-        elif dir == -1:
-            self.snake_blocks.insert(0,
-                                     [self.snake_blocks[0][0], self.snake_blocks[0][1] - self.width, 'up'])
-        if self.length + 1 == len(self.snake_blocks):
-            self.snake_blocks.pop(self.length)
-
-    def draw(self):
-        for coord in self.snake_blocks:
-            pg.draw.rect(screen, self.color, [coord[0], coord[1], self.width, self.width])
-        pass
-
-    def grow(self):
-        self.length += 1
-
-
 class Food:
-    #food class
+    # food class
     def __init__(self, color, coord=None, width=20):
         self.color = color
         self.width = width
@@ -109,16 +54,19 @@ class Food:
 
     pass
 
+
 from snake_module import Snake1
+
 
 class Manager:
     """
     class hendeling main game pcocces
     """
+
     def __init__(self):
         self.walls = []
-        self.food = [Food(green)]
-        self.snake1 = Snake1(red)
+        self.food = [Food(GREEN)]
+        self.snake1 = Snake1(RED)
         # self.snake2 = Snake2(blue)
         # self.snakes = [self.snake1, self.snake2]
         self.snakes = [self.snake1]
@@ -127,7 +75,7 @@ class Manager:
         """
         create new food
         """
-        self.food.insert(0, Food(green))
+        self.food.insert(0, Food(GREEN))
 
     def process(self, events, screen):
         """
@@ -146,7 +94,6 @@ class Manager:
         self.draw()
 
         self.collide()
-
 
         return done
 
@@ -214,30 +161,26 @@ class Manager:
                 if block[0] >= screen_size[0]:
                     block[0] = 0
                 elif block[0] <= -snake.width:
-                    block[0] = screen_size[0]-snake.width
+                    block[0] = screen_size[0] - snake.width
                 if block[1] >= screen_size[1]:
                     block[1] = 0
                 elif block[1] <= -snake.width:
-                    block[1] = screen_size[1]-snake.width
-
-
-
-
-
+                    block[1] = screen_size[1] - snake.width
 
     def walls_update(self):
         """
         add and update objects snake couldn't pass throught
         """
-        self.walls = [[160,100],[160,120],[160,140],[160,160],[160,180],[160,200],[160,220],[160,240],[160,260],[160,280],[160,300],
-        [220,120],[240,120],[260,120],[280,120],[300,120],[320,120],[340,120],[360,120],[380,120],[400,120]]
+        self.walls = [[160, 100], [160, 120], [160, 140], [160, 160], [160, 180], [160, 200], [160, 220], [160, 240],
+                      [160, 260], [160, 280], [160, 300],
+                      [220, 120], [240, 120], [260, 120], [280, 120], [300, 120], [320, 120], [340, 120], [360, 120],
+                      [380, 120], [400, 120]]
         self.blocks = []
         for wall in self.walls:
             screen.blit(brick_wall, brick_wall.get_rect(topleft=wall))
         for snake in self.snakes:
             for e in range(1, snake.length - 1):
                 self.blocks.append([snake.snake_blocks[e][0], snake.snake_blocks[e][1]])
- 
 
     def collide(self):
         """
@@ -257,23 +200,22 @@ class Manager:
                 for block in self.blocks:
                     if [snake.snake_blocks[i][0], snake.snake_blocks[i][1]] == block:
                         snake.move_direction = 0
-                        snake.lives -= 1                    
+                        snake.lives -= 1
         for i in range(len(self.food)):
             for wall in self.snakes:
                 if wall == self.food[i].coord:
                     self.food.pop(i)
                     self.new_food()
-                    
-                    
+
     def block_direction(self):
         """
         update snake blocks textures
         """
         for snake in self.snakes:
-            
-            #updqate body
+
+            # updqate body
             n = snake.length
-            for i in range(1, n-1):
+            for i in range(1, n - 1):
                 if (snake.snake_blocks[i - 1][0] - snake.snake_blocks[i + 1][0] == 0):
                     snake.snake_blocks[i][2] = 'vertical'
                 elif (snake.snake_blocks[i - 1][1] - snake.snake_blocks[i + 1][1] == 0):
@@ -299,10 +241,10 @@ class Manager:
                 #       snake.snake_blocks[i][0] < 0):
                 #     snake.snake_blocks[i][2] = 'left-up'
 
-            #update head
+            # update head
             snake.snake_blocks[0][2] = snake.move_direction
 
-            #update tail
+            # update tail
             if n >= 2:
                 if (snake.snake_blocks[n - 1][0] - snake.snake_blocks[n - 2][0] == 0 and
                         snake.snake_blocks[n - 1][1] - snake.snake_blocks[n - 2][1] < 0):
