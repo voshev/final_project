@@ -111,6 +111,7 @@ def main():
                         button(str(number), 1025, 395, 80, 50, BUDDHA_GOLD, SKOBELOFF)
                         if number >= 5:
                             number = 0
+                            Snake_FPS = 0
                     if event.button == 3:
                         number -= 1
                         if number <= 0:
