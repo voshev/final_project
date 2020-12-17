@@ -1,0 +1,128 @@
+    ###
+    def bot(self):
+        for snake in self.snakes:
+            #direction to apple
+            if snake.snake_blocks[0][0] < self.food[0].coord[0]:
+                if snake.move_direction == 'up':
+                    snake.curve = -1
+                if snake.move_direction == 'down':
+                    snake.curve = 1
+                for wall in self.walls:
+                    if [snake.snake_blocks[0][0] + 20, snake.snake_blocks[0][1]] == wall:
+                            snake.predict = 1
+                if snake.predict == 0:
+                    snake.move_direction = 'right'
+                snake.predict = 0
+            if snake.snake_blocks[0][0] > self.food[0].coord[0]:
+                if snake.move_direction == 'up':
+                    snake.curve = 1
+                if snake.move_direction == 'down':
+                    snake.curve = -1
+                for wall in self.walls:
+                    if [snake.snake_blocks[0][0] - 20, snake.snake_blocks[0][1]] == wall:
+                            snake.predict = 1
+                if snake.predict == 0:
+                    snake.move_direction = 'left'
+                snake.predict = 0
+            if snake.snake_blocks[0][0] == self.food[0].coord[0]:
+                if snake.snake_blocks[0][1] < self.food[0].coord[1]:
+                    if snake.move_direction == 'right':
+                        snake.curve = -1
+                    if snake.move_direction == 'left':
+                        snake.curve = 1
+                    for wall in self.walls:
+                        if [snake.snake_blocks[0][0], snake.snake_blocks[0][1] + 20] == wall:
+                            snake.predict = 1
+                    if snake.predict == 0:
+                        snake.move_direction = 'down'
+                    snake.predict = 0
+                    
+                if snake.snake_blocks[0][1] > self.food[0].coord[1]:
+                    if snake.move_direction == 'right':
+                        snake.curve = 1
+                    if snake.move_direction == 'left':
+                        snake.curve = -1
+                    for wall in self.walls:
+                        if [snake.snake_blocks[0][0], snake.snake_blocks[0][1] - 20] == wall:
+                            snake.predict = 1
+                    if snake.predict == 0:
+                        snake.move_direction = 'up'
+                    snake.predict = 0
+
+            #through walls
+            if snake.move_direction == 'right':
+                for wall in self.walls:
+                    if [snake.snake_blocks[0][0] + 20, snake.snake_blocks[0][1]] == wall:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'down'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'up'
+                            snake.curve = 1
+                        
+            if snake.move_direction == 'left':
+                for wall in self.walls:
+                    if [snake.snake_blocks[0][0] - 20, snake.snake_blocks[0][1]] == wall:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'up'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'down'
+                            snake.curve = 1
+            if snake.move_direction == 'up':
+                for wall in self.walls:
+                    if [snake.snake_blocks[0][0], snake.snake_blocks[0][1] - 20] == wall:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'right'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'left'
+                            snake.curve = 1
+            if snake.move_direction == 'down':
+                for wall in self.walls:
+                    if [snake.snake_blocks[0][0], snake.snake_blocks[0][1] + 20] == wall:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'left'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'right'
+                            snake.curve = 1
+                        
+            #through body
+            if snake.move_direction == 'right':
+                for block in self.blocks:
+                    if [snake.snake_blocks[0][0] + 20, snake.snake_blocks[0][1]] == block:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'down'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'up'
+                            snake.curve = 1
+            if snake.move_direction == 'left':
+                for block in self.blocks:
+                     if [snake.snake_blocks[0][0] - 20, snake.snake_blocks[0][1]] == block:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'up'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'down'
+                            snake.curve = 1
+            if snake.move_direction == 'up':
+                for block in self.blocks:
+                    if [snake.snake_blocks[0][0], snake.snake_blocks[0][1] - 20] == block:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'right'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'left'
+                            snake.curve = 1
+            if snake.move_direction == 'down':
+                for block in self.blocks:
+                    if [snake.snake_blocks[0][0], snake.snake_blocks[0][1] + 20] == block:
+                        if snake.curve >= 0:
+                            snake.move_direction == 'left'
+                            snake.curve = -1
+                        else:
+                            snake.move_direction == 'right'
+                            snake.curve = 1
+    ###
